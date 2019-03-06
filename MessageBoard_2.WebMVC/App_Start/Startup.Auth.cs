@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using MessageBoard_2.WebMVC.Models;
+using MessageBoard_2.Data;
 
 namespace MessageBoard_2.WebMVC
 {

@@ -49,9 +49,8 @@ namespace MessageBoard_2.WebMVC.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -68,6 +67,16 @@ namespace MessageBoard_2.WebMVC.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+		[Required]
+		[Display(Name ="Username")]
+		[MinLength(2, ErrorMessage ="Your name must be at least 2 characters.")]
+		[MaxLength(20, ErrorMessage ="Your name must not be longer than 20 characters.")]
+		public string UserName { get; set; } //Custom. For now the username is display only, we will still sign in using email.
+
+		//[Required]
+		//[Display(Name ="UserRoles")]
+		//public string UserRoles { get; set; } //Custom
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

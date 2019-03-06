@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MessageBoard_2.WebMVC.Models;
+using MessageBoard_2.Data;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace MessageBoard_2.WebMVC.Controllers
 {
@@ -17,8 +20,7 @@ namespace MessageBoard_2.WebMVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
-        public AccountController()
+		public AccountController()
         {
         }
 
@@ -75,7 +77,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -149,21 +151,34 @@ namespace MessageBoard_2.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+			foreach(var tempuser in UserManager.Users)
+			{
+				if(tempuser.UserName == model.UserName) //Potential security risk but it's okay for this small project.
+				{
+					ModelState.AddModelError("UserName", "Duplicate username.");
+					return View(model);
+				}
+				else if(tempuser.Email == model.Email) //Likewise^^
+				{
+					ModelState.AddModelError("Email", "Duplicate email.");
+					return View(model);
+				}
+			}
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+					// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+					// Send an email with this link
+					// string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+					// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+					// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+					await this.UserManager.AddToRoleAsync(user.Id, "Member"); //Added by me. Manually sets every new account to the "member" rank.
+					return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
