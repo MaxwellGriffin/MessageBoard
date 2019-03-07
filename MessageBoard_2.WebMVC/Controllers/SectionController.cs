@@ -46,6 +46,14 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
+		public ActionResult Details(int id)
+		{
+			var svc = CreateSectionService();
+			var model = svc.GetSectionById(id);
+
+			return View(model);
+		}
+
 		//Helper methods
 		private SectionService CreateSectionService()
 		{

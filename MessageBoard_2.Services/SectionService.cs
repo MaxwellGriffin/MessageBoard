@@ -33,26 +33,6 @@ namespace MessageBoard_2.Services
 			}
 		}
 
-		public IEnumerable<SectionListItem> GetSectionsByID()
-		{
-			using (var ctx = new ApplicationDbContext())
-			{
-				var query =
-					ctx
-						.Sections
-						.Where(e => e.CreatorID == _userId)
-						.Select(
-							e =>
-								new SectionListItem
-								{
-									Title = e.Title,
-								}
-						);
-
-				return query.ToArray();
-			}
-		} //Probably not needed... normally we will be showing all sections to all users regardless of who created them.
-
 		public IEnumerable<SectionListItem> GetSectionsAll()
 		{
 			using (var ctx = new ApplicationDbContext())
@@ -65,11 +45,31 @@ namespace MessageBoard_2.Services
 								new SectionListItem
 								{
 									Title = e.Title,
+									SectionID = e.SectionID
 								}
 						);
 
 				return query.ToArray();
 			}
 		}
+
+		public SectionDetail GetSectionById(int sectionId)
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				var entity =
+					ctx
+						.Sections
+						.Single(e => e.SectionID == sectionId);
+				return
+					new SectionDetail
+					{
+						SectionId = entity.SectionID,
+						Title = entity.Title,
+						CreatorID = entity.CreatorID
+					};
+			}
+		}
 	}
+
 }

@@ -11,6 +11,7 @@ namespace MessageBoard_2.Models.Section
 	{
 		[Display(Name ="Name")]
 		public string Title { get; set; }
+		public int SectionID { get; set; }
 
 		public override string ToString() => Title;
 	}
