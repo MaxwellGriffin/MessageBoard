@@ -9,6 +9,17 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@if (TempData.ContainsKey("ResultSaved"))
+{
+    <div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+        @TempData["ResultSaved"]
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -17,17 +28,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+                <!--Html.ActionLink(item.Title, "Index", "Thread")-->
+                <!--ActionLink(Link text, Action, Controller)-->
+                <!--Will be replaced with this once the other controller is ready.-->
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @if (this.User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
+                } |
+                @if (this.User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

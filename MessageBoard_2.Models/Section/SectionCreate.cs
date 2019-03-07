@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MessageBoard_2.Models.Section
 {
-	public class SectionListItem
+	public class SectionCreate
 	{
-		[Display(Name ="Name")]
+		[Required]
 		public string Title { get; set; }
 
 		public override string ToString() => Title;
