@@ -33,6 +33,20 @@ namespace MessageBoard_2.Services
 			}
 		}
 
+		public bool UpdateSection(SectionEdit model)
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				var entity =
+					ctx
+						.Sections
+						.Single(e => e.SectionID == model.SectionID);
+
+				entity.Title = model.Title;
+				return ctx.SaveChanges() == 1;
+			}
+		}
+
 		public IEnumerable<SectionListItem> GetSectionsAll()
 		{
 			using (var ctx = new ApplicationDbContext())

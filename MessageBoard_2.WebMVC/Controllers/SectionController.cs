@@ -54,6 +54,43 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
+		public ActionResult Edit(int id)
+		{
+			var service = CreateSectionService();
+			var detail = service.GetSectionById(id);
+			var model =
+				new SectionEdit
+				{
+					SectionID = detail.SectionId,
+					Title = detail.Title
+				};
+			return View(model);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, SectionEdit model)
+		{
+			if (!ModelState.IsValid) return View(model);
+
+			if (model.SectionID != id)
+			{
+				ModelState.AddModelError("", "Id Mismatch");
+				return View(model);
+			}
+
+			var service = CreateSectionService();
+
+			if (service.UpdateSection(model))
+			{
+				TempData["ResultSaved"] = "Section was updated.";
+				return RedirectToAction("Index");
+			}
+
+			ModelState.AddModelError("", "Section could not be updated.");
+			return View(model);
+		}
+
 		//Helper methods
 		private SectionService CreateSectionService()
 		{

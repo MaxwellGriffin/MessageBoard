@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Section\SectionCreate.cs" />
     <Compile Include="Section\SectionDetail.cs" />
+    <Compile Include="Section\SectionEdit.cs" />
     <Compile Include="Section\SectionListItem.cs" />
   </ItemGroup>
   <ItemGroup>
