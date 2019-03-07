@@ -59,6 +59,14 @@ namespace MessageBoard_2.WebMVC
 				roleManager.Create(role);
 
 			}
+
+			if (!roleManager.RoleExists("Banned"))
+			{
+				var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+				role.Name = "Banned";
+				roleManager.Create(role);
+
+			}
 		}
 	}
 }

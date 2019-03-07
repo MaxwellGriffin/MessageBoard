@@ -47,6 +47,21 @@ namespace MessageBoard_2.Services
 			}
 		}
 
+		public bool DeleteSection(int sectionId) //delete section by id
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				var entity =
+					ctx
+						.Sections
+						.Single(e => e.SectionID == sectionId);
+
+				ctx.Sections.Remove(entity);
+
+				return ctx.SaveChanges() == 1;
+			}
+		}
+
 		public IEnumerable<SectionListItem> GetSectionsAll()
 		{
 			using (var ctx = new ApplicationDbContext())

@@ -91,6 +91,28 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
+		public ActionResult Delete(int id)
+		{
+			var svc = CreateSectionService();
+			var model = svc.GetSectionById(id);
+
+			return View(model);
+		}
+
+		[HttpPost]
+		[ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteSection(int id)
+		{
+			var service = CreateSectionService();
+
+			service.DeleteSection(id);
+
+			TempData["SaveResult"] = "The section was deleted";
+
+			return RedirectToAction("Index");
+		}
+
 		//Helper methods
 		private SectionService CreateSectionService()
 		{
