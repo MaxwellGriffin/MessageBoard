@@ -59,6 +59,10 @@
     <Compile Include="Section\SectionDetail.cs" />
     <Compile Include="Section\SectionEdit.cs" />
     <Compile Include="Section\SectionListItem.cs" />
+    <Compile Include="Thread\ThreadCreate.cs" />
+    <Compile Include="Thread\ThreadDetail.cs" />
+    <Compile Include="Thread\ThreadEdit.cs" />
+    <Compile Include="Thread\ThreadListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

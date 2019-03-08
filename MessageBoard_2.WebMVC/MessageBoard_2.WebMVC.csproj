@@ -248,10 +248,14 @@
     <Content Include="Views\Section\Edit.cshtml" />
     <Content Include="Views\Section\Delete.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTimeOffset.cshtml" />
+    <Content Include="Views\Thread\Create.cshtml" />
+    <Content Include="Views\Thread\Delete.cshtml" />
+    <Content Include="Views\Thread\Details.cshtml" />
+    <Content Include="Views\Thread\Edit.cshtml" />
+    <Content Include="Views\Thread\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Thread\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

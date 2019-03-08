@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MessageBoard_2.Models.Thread.ThreadListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @Html.HiddenFor(model => model.ThreadID, "")
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedUTC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastPostCreatorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastPostUTC)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @Html.HiddenFor(modelItem => item.ThreadID)
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedUTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastPostCreatorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastPostUTC)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ThreadID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ThreadID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ThreadID })
+        </td>
+    </tr>
+}
+
+</table>
