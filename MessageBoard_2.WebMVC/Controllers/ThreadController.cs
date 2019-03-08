@@ -1,4 +1,5 @@
 ﻿using MessageBoard_2.Models.Thread;
+using MessageBoard_2.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 			var service = CreateThreadService();
 
-			if (service.UpdateSection(model))
+			if (service.UpdateThread(model))
 			{
 				TempData["ResultSaved"] = "Thread was updated.";
 				return RedirectToAction("Index");
@@ -103,7 +104,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 		{
 			var service = CreateThreadService();
 
-			service.DeleteSection(id);
+			service.DeleteThread(id);
 
 			TempData["SaveResult"] = "The thread was deleted";
 
