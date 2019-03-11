@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MessageBoard_2.Models.Post
 {
-	public class PostListItem
+	public class PostListItem //Used for index/delete
 	{
 		public Guid PostID { get; set; } //should be hidden
 		public string Body { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MessageBoard_2.Models.Post
 {
-	class PostCreate
+	public class PostCreate
 	{
 		[Required]
 		public string Body { get; set; }
