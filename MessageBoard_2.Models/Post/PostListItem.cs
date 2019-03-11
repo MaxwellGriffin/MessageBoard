@@ -10,6 +10,7 @@ namespace MessageBoard_2.Models.Post
 	public class PostListItem //Used for index/delete
 	{
 		public Guid PostID { get; set; } //should be hidden
+		public Guid ThreadID { get; set; }
 		public string Body { get; set; }
 		public Guid CreatorID { get; set; }
 		public DateTimeOffset CreatedUTC { get; set; }

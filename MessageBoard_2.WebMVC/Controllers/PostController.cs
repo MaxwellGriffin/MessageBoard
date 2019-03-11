@@ -1,4 +1,5 @@
 ﻿using MessageBoard_2.Models.Post;
+using MessageBoard_2.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,16 @@ using System.Web.Mvc;
 
 namespace MessageBoard_2.WebMVC.Controllers
 {
+	[Authorize]
     public class PostController : Controller
     {
+		public Guid currentThreadId;
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(Guid threadId)
         {
-			var model = new PostListItem[0];
+			var service = CreatePostService();
+			var model = service.GetPostsByThread(threadId);
+			currentThreadId = threadId;
 			return View(model);
 		}
 
@@ -26,6 +31,11 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(PostCreate model)
 		{
+			if (currentThreadId != null)
+			{
+				model.ThreadID = currentThreadId;
+			}
+
 			if (!ModelState.IsValid) return View(model);
 
 			var service = CreatePostService();

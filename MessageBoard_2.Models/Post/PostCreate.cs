@@ -11,7 +11,8 @@ namespace MessageBoard_2.Models.Post
 	{
 		[Required]
 		public string Body { get; set; }
-
+		[Required]
+		public Guid ThreadID { get; set; }
 		public override string ToString() => Body;
 	}
 }

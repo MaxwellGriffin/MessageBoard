@@ -12,12 +12,16 @@ namespace MessageBoard_2.WebMVC.Controllers
 	[Authorize]
     public class ThreadController : Controller
     {
-        // GET: Thread
-        public ActionResult Index()
+		public int currentSectionId;
+
+		// GET: Thread
+		public ActionResult Index(int sectionId)
         {
-			var model = new ThreadListItem[0];
+			var service = CreateThreadService();
+			var model = service.GetThreadsBySection(sectionId);
+			currentSectionId = sectionId;
 			return View(model);
-        }
+		}
 
 		public ActionResult Create()
 		{
@@ -29,6 +33,11 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(ThreadCreate model)
 		{
+			if (currentSectionId != null)
+			{
+				model.SectionID = currentSectionId;
+			}
+
 			if (!ModelState.IsValid) return View(model);
 
 			var service = CreateThreadService();

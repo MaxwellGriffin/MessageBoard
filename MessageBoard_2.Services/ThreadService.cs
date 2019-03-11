@@ -24,6 +24,7 @@ namespace MessageBoard_2.Services
 				{
 					CreatorID = _userId,
 					Title = model.Title,
+					CreatedUTC = DateTimeOffset.Now
 				};
 
 			using (var ctx = new ApplicationDbContext())
@@ -62,13 +63,14 @@ namespace MessageBoard_2.Services
 			}
 		}
 
-		public IEnumerable<ThreadListItem> GetThreadsAll()
+		public IEnumerable<ThreadListItem> GetThreadsBySection(int sectionId)
 		{
 			using (var ctx = new ApplicationDbContext())
 			{
 				var query =
 					ctx
 						.Threads
+						.Where(e => e.SectionID == sectionId)
 						.Select(
 							e =>
 								new ThreadListItem
@@ -76,17 +78,16 @@ namespace MessageBoard_2.Services
 									ThreadID = e.ThreadID,
 									Title = e.Title,
 									CreatorID = e.CreatorID,
-									CreatedUTC = e.CreatedUTC,
-									//PostCount = GetPostCount(e.ThreadID),
-
-
-
-									//this is where we will call the helper methods later
-
-
-
+									CreatedUTC = e.CreatedUTC
 								}
 						);
+				foreach (ThreadListItem item in query)
+				{
+					item.PostCount = GetPostCount(item.ThreadID);
+					item.LastPostCreatorID = GetLastPost(item.ThreadID).CreatorID;
+					item.LastPostUTC = GetLastPost(item.ThreadID).CreatedUTC;
+				}
+
 
 				return query.ToArray();
 			}
@@ -110,14 +111,22 @@ namespace MessageBoard_2.Services
 			}
 		}
 
-		//public int GetPostCount(Guid threadId)
-		//{
-		//	using (var ctx = new ApplicationDbContext())
-		//	{
-		//		var entity = ctx.Threads.Single(e => e.ThreadID == threadId);
-				
+		//HELPER METHODS
 
-		//	}
-		//}
+		public int GetPostCount(Guid threadId) //returns how many posts are in this thread (how many posts have this threadID).
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				return ctx.Posts.Where(e => e.ThreadID == threadId).Count();
+			}
+		}
+
+		public Post GetLastPost(Guid threadId) //returns the last post in this thread.
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				return ctx.Posts.Where(e => e.ThreadID == threadId).OrderByDescending(x => x.CreatedUTC).FirstOrDefault();
+			}
+		}
 	}
 }

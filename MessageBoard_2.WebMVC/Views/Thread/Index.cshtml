@@ -36,7 +36,7 @@
     <tr>
         @Html.HiddenFor(modelItem => item.ThreadID)
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.ActionLink(item.Title, "Index", "Post", new { threadId = item.ThreadID }, "") <!--Should to go post controller index(threadId)-->
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatorID)

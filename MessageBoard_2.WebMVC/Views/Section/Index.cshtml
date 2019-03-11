@@ -32,7 +32,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.ActionLink(item.Title, "Index", "Thread", new { sectionId = item.SectionID }, "") <!--Should to go post controller index(threadId)-->
                 @Html.HiddenFor(modelItem => item.SectionID)
 
                 <!--Html.ActionLink(item.Title, "Index", "Thread")-->
