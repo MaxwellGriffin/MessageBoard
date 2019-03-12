@@ -14,11 +14,13 @@ namespace MessageBoard_2.WebMVC.Controllers
     public class PostController : Controller
     {
         // GET: Post
-        public ActionResult Index(string threadId)
+        public ActionResult Index(string threadId) //recieves new thread id
         {
 			Guid CurrentThreadID = Guid.Parse(threadId);
 			var service = CreatePostService();
 			var model = service.GetPostsByThread(CurrentThreadID);
+			Session["currentThread"] = CurrentThreadID; //sets current thread.
+			//Session["currentThread"] should only be used when redirecting to the index page from a view.
 			return View(model);
 		}
 
