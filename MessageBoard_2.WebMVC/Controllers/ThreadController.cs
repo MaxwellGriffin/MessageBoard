@@ -42,7 +42,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			{
 				TempData["ResultSaved"] = "Your thread was created.";
 				return RedirectToAction("Index");
-			};
+			}
 
 			ModelState.AddModelError("", "Thread could not be created.");
 

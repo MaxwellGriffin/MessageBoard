@@ -6,19 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace MessageBoard_2.WebMVC.Controllers
 {
 	[Authorize]
     public class PostController : Controller
     {
-		public Guid currentThreadId;
         // GET: Post
-        public ActionResult Index(Guid threadId)
+        public ActionResult Index(string threadId)
         {
+			Guid CurrentThreadID = Guid.Parse(threadId);
 			var service = CreatePostService();
-			var model = service.GetPostsByThread(threadId);
-			currentThreadId = threadId;
+			var model = service.GetPostsByThread(CurrentThreadID);
 			return View(model);
 		}
 
@@ -31,11 +31,6 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(PostCreate model)
 		{
-			if (currentThreadId != null)
-			{
-				model.ThreadID = currentThreadId;
-			}
-
 			if (!ModelState.IsValid) return View(model);
 
 			var service = CreatePostService();

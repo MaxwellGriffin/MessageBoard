@@ -31,7 +31,7 @@ namespace MessageBoard_2.Services
 			var newpost = 
 				new Post()
 				{
-					PostID = new Guid(),
+					PostID = Guid.NewGuid(),
 					ThreadID = id,
 					CreatorID = _userId,
 					CreatedUTC = DateTimeOffset.Now,
@@ -41,8 +41,10 @@ namespace MessageBoard_2.Services
 			using (var ctx = new ApplicationDbContext())
 			{
 				ctx.Threads.Add(entity);
+				bool result = ctx.SaveChanges() == 1;
 				ctx.Posts.Add(newpost);
-				return ctx.SaveChanges() == 1;
+				result &= ctx.SaveChanges() == 1;
+				return result;
 			}
 		}
 

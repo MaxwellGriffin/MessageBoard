@@ -22,6 +22,8 @@ namespace MessageBoard_2.Services
 			var entity =
 				new Post()
 				{
+					PostID = new Guid(),
+					ThreadID = model.ThreadID,
 					CreatorID = _userId,
 					Body = model.Body,
 					CreatedUTC = DateTimeOffset.Now
