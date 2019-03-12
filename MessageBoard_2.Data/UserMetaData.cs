@@ -9,6 +9,5 @@ namespace MessageBoard_2.Data
 	class UserMetaData
 	{
 		public Guid CurrentThreadID { get; set; }
-		public Guid CurrentSectionID { get; set; }
 	}
 }

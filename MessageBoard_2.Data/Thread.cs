@@ -12,8 +12,6 @@ namespace MessageBoard_2.Data
 		[Key]
 		public Guid ThreadID { get; set; } //Unique id of thread. Uses Guid because you could theoretically have thousands of threads.
 		[Required]
-		public int SectionID { get; set; } //ID of the section this thread falls under.
-		[Required]
 		public Guid CreatorID { get; set; } //Who created the thread. Threads are user creatable, so we save more data about them.
 		[Required]
 		public DateTimeOffset CreatedUTC { get; set; } //Date created.

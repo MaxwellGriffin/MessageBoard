@@ -1,4 +1,6 @@
-﻿using MessageBoard_2.Models.Thread;
+﻿using MessageBoard_2.Data;
+using MessageBoard_2.Models.Post;
+using MessageBoard_2.Models.Thread;
 using MessageBoard_2.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -12,16 +14,12 @@ namespace MessageBoard_2.WebMVC.Controllers
 	[Authorize]
     public class ThreadController : Controller
     {
-		public int currentSectionId = 99;
-
 		// GET: Thread
 		[Route("")]
-		public ActionResult Index(int sectionId)
+		public ActionResult Index()
         {
-			int id = (int)sectionId;
 			var service = CreateThreadService();
-			var model = service.GetThreadsBySection(id);
-			currentSectionId = id;
+			var model = service.GetThreadsAll();
 			return View(model);
 		}
 
@@ -35,7 +33,6 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(ThreadCreate model)
 		{
-			model.SectionID = currentSectionId;
 
 			if (!ModelState.IsValid) return View(model);
 

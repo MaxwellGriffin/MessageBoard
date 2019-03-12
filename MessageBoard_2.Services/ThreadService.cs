@@ -19,18 +19,29 @@ namespace MessageBoard_2.Services
 
 		public bool CreateThread(ThreadCreate model)
 		{
+			Guid id = Guid.NewGuid();
 			var entity =
 				new Thread()
 				{
-					ThreadID = Guid.NewGuid(), //????????
+					ThreadID = id,
 					CreatorID = _userId,
 					Title = model.Title,
 					CreatedUTC = DateTimeOffset.Now
+				};
+			var newpost = 
+				new Post()
+				{
+					PostID = new Guid(),
+					ThreadID = id,
+					CreatorID = _userId,
+					CreatedUTC = DateTimeOffset.Now,
+					Body = model.Body
 				};
 
 			using (var ctx = new ApplicationDbContext())
 			{
 				ctx.Threads.Add(entity);
+				ctx.Posts.Add(newpost);
 				return ctx.SaveChanges() == 1;
 			}
 		}
@@ -64,14 +75,13 @@ namespace MessageBoard_2.Services
 			}
 		}
 
-		public IEnumerable<ThreadListItem> GetThreadsBySection(int sectionId)
+		public IEnumerable<ThreadListItem> GetThreadsAll()
 		{
 			using (var ctx = new ApplicationDbContext())
 			{
 				var query =
 					ctx
 						.Threads
-						.Where(e => e.SectionID == sectionId)
 						.Select(
 							e =>
 								new ThreadListItem

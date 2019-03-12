@@ -36,7 +36,6 @@ namespace MessageBoard_2.Data
 
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Thread> Threads { get; set; }
-		public DbSet<Section> Sections { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

@@ -10,7 +10,6 @@ namespace MessageBoard_2.Models.Thread
 	public class ThreadDetail
 	{
 		public Guid ThreadID { get; set; }
-		public int SectionId { get; set; }
 		public string Title { get; set; }
 		public Guid? CreatorID { get; set; }
 		public DateTimeOffset CreatedUTC { get; set; }

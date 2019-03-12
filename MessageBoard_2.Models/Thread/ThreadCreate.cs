@@ -11,7 +11,7 @@ namespace MessageBoard_2.Models.Thread
 	{
 		[Required]
 		public string Title { get; set; }
-		public int SectionID { get; set; }
+		public string Body { get; set; }
 
 		public override string ToString() => Title;
 	}

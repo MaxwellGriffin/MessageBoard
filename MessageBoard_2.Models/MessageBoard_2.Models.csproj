@@ -58,10 +58,6 @@
     <Compile Include="Post\PostEdit.cs" />
     <Compile Include="Post\PostListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Section\SectionCreate.cs" />
-    <Compile Include="Section\SectionDetail.cs" />
-    <Compile Include="Section\SectionEdit.cs" />
-    <Compile Include="Section\SectionListItem.cs" />
     <Compile Include="Thread\ThreadCreate.cs" />
     <Compile Include="Thread\ThreadDetail.cs" />
     <Compile Include="Thread\ThreadEdit.cs" />

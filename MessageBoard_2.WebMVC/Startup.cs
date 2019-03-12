@@ -36,7 +36,7 @@ namespace MessageBoard_2.WebMVC
 				//Here we create a Admin super user who will maintain the website                  
 
 				var user = new ApplicationUser();
-				user.UserName = "SuperAdmin9002";
+				user.UserName = "SuperAdmin9001";
 				user.Email = "admin2@admin.net";
 
 				string userPWD = "password";
