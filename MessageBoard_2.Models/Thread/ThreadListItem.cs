@@ -16,11 +16,11 @@ namespace MessageBoard_2.Models.Thread
 		[Display(Name = "Created")]
 		public DateTimeOffset CreatedUTC { get; set; }
 		[Display(Name = "Posts")]
-		public int PostCount { get; set; } //How many posts are in the thread.
+		public int? PostCount { get; set; } //How many posts are in the thread.
 		[Display(Name = "Last Post")]
-		public Guid LastPostCreatorID { get; set; } 
+		public Guid? LastPostCreatorID { get; set; } 
 		[Display(Name = "")]
-		public DateTimeOffset LastPostUTC { get; set; }
+		public DateTimeOffset? LastPostUTC { get; set; }
 
 		public override string ToString() { return base.ToString(); }
 	}

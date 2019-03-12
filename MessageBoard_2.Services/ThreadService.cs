@@ -22,6 +22,7 @@ namespace MessageBoard_2.Services
 			var entity =
 				new Thread()
 				{
+					ThreadID = Guid.NewGuid(), //????????
 					CreatorID = _userId,
 					Title = model.Title,
 					CreatedUTC = DateTimeOffset.Now
@@ -117,7 +118,9 @@ namespace MessageBoard_2.Services
 		{
 			using (var ctx = new ApplicationDbContext())
 			{
-				return ctx.Posts.Where(e => e.ThreadID == threadId).Count();
+				var count = 0;
+				count = ctx.Posts.Where(e => e.ThreadID == threadId).Count();
+				return count;	
 			}
 		}
 
@@ -125,6 +128,17 @@ namespace MessageBoard_2.Services
 		{
 			using (var ctx = new ApplicationDbContext())
 			{
+				if(ctx.Posts.Where(e => e.ThreadID == threadId).Count() == 0)
+				{
+					return new Post
+					{
+						CreatorID = _userId,
+						CreatedUTC = DateTimeOffset.Now,
+						PostID = new Guid(),
+						ThreadID = new Guid(),
+						Body = "ERROR NO POSTS"
+					};
+				}
 				return ctx.Posts.Where(e => e.ThreadID == threadId).OrderByDescending(x => x.CreatedUTC).FirstOrDefault();
 			}
 		}
