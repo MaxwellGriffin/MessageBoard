@@ -19,7 +19,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			Guid CurrentThreadID = Guid.Parse(threadId);
 			var service = CreatePostService();
 			var model = service.GetPostsByThread(CurrentThreadID);
-			Session["currentThread"] = CurrentThreadID; //sets current thread.
+			this.Session["currentThread"] = CurrentThreadID.ToString(); //sets current thread.
 			//Session["currentThread"] should only be used when redirecting to the index page from a view.
 			return View(model);
 		}
@@ -33,15 +33,17 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(PostCreate model)
 		{
-			if (!ModelState.IsValid) return View(model);
+			model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important(?)
+			//TODO: model state is not valid because not all properties are filled ?
+			//if (!ModelState.IsValid) return View(model); 
 
 			var service = CreatePostService();
 
 			if (service.CreatePost(model))
 			{
 				TempData["ResultSaved"] = "Post was created.";
-				return RedirectToAction("Index");
-			};
+				return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
+			}
 
 			ModelState.AddModelError("", "Post could not be created.");
 

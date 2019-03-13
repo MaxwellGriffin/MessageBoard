@@ -22,7 +22,7 @@ namespace MessageBoard_2.Services
 			var entity =
 				new Post()
 				{
-					PostID = new Guid(),
+					PostID = Guid.NewGuid(),
 					ThreadID = model.ThreadID,
 					CreatorID = _userId,
 					Body = model.Body,
