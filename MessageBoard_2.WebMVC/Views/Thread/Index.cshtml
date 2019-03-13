@@ -15,19 +15,19 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatorID)
+            @Html.DisplayNameFor(model => model.CreatedUTC)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedUTC)
+            @Html.DisplayNameFor(model => model.CreatorUsername)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PostCount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastPostCreatorID)
+            @Html.DisplayNameFor(model => model.LastPostUTC)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastPostUTC)
+            @Html.DisplayNameFor(model => model.LastPostCreatorUsername)
         </th>
         <th></th>
     </tr>
@@ -39,19 +39,19 @@
             @Html.ActionLink(item.Title, "Index", "Post", new { threadId = item.ThreadID.ToString() }, null) <!--Should to go post controller index(threadId)-->
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatorID)
+            @Html.DisplayFor(modelItem => item.CreatedUTC) by
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedUTC)
+            @Html.DisplayFor(modelItem => item.CreatorUsername)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PostCount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastPostCreatorID)
+            @Html.DisplayFor(modelItem => item.LastPostUTC) by
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastPostUTC)
+            @Html.DisplayFor(modelItem => item.LastPostCreatorUsername)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ThreadID }) |

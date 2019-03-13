@@ -91,13 +91,14 @@ namespace MessageBoard_2.Services
 									ThreadID = e.ThreadID,
 									Title = e.Title,
 									CreatorID = e.CreatorID,
-									CreatedUTC = e.CreatedUTC,
+									CreatorUsername = ctx.Users.Where(y => y.Id == e.CreatorID.ToString()).FirstOrDefault().UserName,
+									CreatedUTC = e.CreatedUTC,//ok
 									PostCount = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).Count(),
-									LastPostCreatorID = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatorID,
+									LastPostCreatorUsername = ctx.Users.Where(y => y.Id == ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatorID.ToString()).FirstOrDefault().UserName,
 									LastPostUTC = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatedUTC
 								}
 						);
-				return query.OrderByDescending(x => x.LastPostUTC).ToArray(); //TODO: change to lastpostutc
+				return query.OrderByDescending(x => x.LastPostUTC).ToArray();
 			}
 		}
 
