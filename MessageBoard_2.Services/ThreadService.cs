@@ -91,18 +91,13 @@ namespace MessageBoard_2.Services
 									ThreadID = e.ThreadID,
 									Title = e.Title,
 									CreatorID = e.CreatorID,
-									CreatedUTC = e.CreatedUTC
+									CreatedUTC = e.CreatedUTC,
+									PostCount = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).Count(),
+									LastPostCreatorID = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatorID,
+									LastPostUTC = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatedUTC
 								}
 						);
-				foreach (ThreadListItem item in query)
-				{
-					item.PostCount = GetPostCount(item.ThreadID);
-					item.LastPostCreatorID = GetLastPost(item.ThreadID).CreatorID;
-					item.LastPostUTC = GetLastPost(item.ThreadID).CreatedUTC;
-				}
-
-
-				return query.ToArray();
+				return query.OrderByDescending(x => x.LastPostUTC).ToArray(); //TODO: change to lastpostutc
 			}
 		}
 
@@ -125,34 +120,5 @@ namespace MessageBoard_2.Services
 		}
 
 		//HELPER METHODS
-
-		public int GetPostCount(Guid threadId) //returns how many posts are in this thread (how many posts have this threadID).
-		{
-			using (var ctx = new ApplicationDbContext())
-			{
-				var count = 0;
-				count = ctx.Posts.Where(e => e.ThreadID == threadId).Count();
-				return count;	
-			}
-		}
-
-		public Post GetLastPost(Guid threadId) //returns the last post in this thread.
-		{
-			using (var ctx = new ApplicationDbContext())
-			{
-				if(ctx.Posts.Where(e => e.ThreadID == threadId).Count() == 0)
-				{
-					return new Post
-					{
-						CreatorID = _userId,
-						CreatedUTC = DateTimeOffset.Now,
-						PostID = new Guid(),
-						ThreadID = new Guid(),
-						Body = "ERROR NO POSTS"
-					};
-				}
-				return ctx.Posts.Where(e => e.ThreadID == threadId).OrderByDescending(x => x.CreatedUTC).FirstOrDefault();
-			}
-		}
 	}
 }

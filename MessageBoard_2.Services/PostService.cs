@@ -108,7 +108,7 @@ namespace MessageBoard_2.Services
 								}
 						);
 
-				return query.ToArray();
+				return query.OrderBy(x => x.CreatedUTC).ToArray();
 			}
 		}
 	}
