@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MessageBoard_2.Models.Post.PostListItem>
+
+<h2>@ViewBag.Title</h2> <!--This page will need to be heavily redesigned.-->
+
+<p>
+    @Html.ActionLink("New Reply", "Create") | @Html.ActionLink("Back", "Index", "Thread")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Body)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatorUsername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedUTC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedUTC)
+        </th>
+    </tr>
+@{ 
+}
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Body)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatorUsername)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedUTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedUTC)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.PostID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.PostID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+    @Html.ActionLink("New Reply", "Create") | @Html.ActionLink("Back", "Index", "Thread")
+</p>

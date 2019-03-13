@@ -104,7 +104,8 @@ namespace MessageBoard_2.Services
 									Body = e.Body,
 									CreatorID = e.CreatorID,
 									CreatedUTC = e.CreatedUTC,
-									ModifiedUTC = e.ModifiedUTC
+									ModifiedUTC = e.ModifiedUTC,
+									CreatorUsername = ctx.Users.Where(x => x.Id == e.CreatorID.ToString()).FirstOrDefault().UserName
 								}
 						);
 

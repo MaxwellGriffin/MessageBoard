@@ -13,6 +13,7 @@ namespace MessageBoard_2.Models.Post
 		public Guid ThreadID { get; set; }
 		public string Body { get; set; }
 		public Guid CreatorID { get; set; }
+		public string CreatorUsername { get; set; }
 		public DateTimeOffset CreatedUTC { get; set; }
 		public DateTimeOffset? ModifiedUTC { get; set; }
 

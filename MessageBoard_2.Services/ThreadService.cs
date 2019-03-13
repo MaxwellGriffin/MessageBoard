@@ -94,7 +94,7 @@ namespace MessageBoard_2.Services
 									CreatorUsername = ctx.Users.Where(y => y.Id == e.CreatorID.ToString()).FirstOrDefault().UserName,
 									CreatedUTC = e.CreatedUTC,//ok
 									PostCount = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).Count(),
-									LastPostCreatorUsername = ctx.Users.Where(y => y.Id == ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatorID.ToString()).FirstOrDefault().UserName,
+									LastPostCreatorUsername = ctx.Users.Where(y => y.Id == ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatorID.ToString()).FirstOrDefault().UserName, //lol
 									LastPostUTC = ctx.Posts.Where(p => p.ThreadID == e.ThreadID).OrderByDescending(x => x.CreatedUTC).FirstOrDefault().CreatedUTC
 								}
 						);
@@ -121,5 +121,12 @@ namespace MessageBoard_2.Services
 		}
 
 		//HELPER METHODS
+		public string GetThreadTitle(Guid threadId)
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				return ctx.Threads.Where(e => e.ThreadID == threadId).Single().Title;
+			}
+		}
 	}
 }

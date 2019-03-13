@@ -16,11 +16,14 @@ namespace MessageBoard_2.WebMVC.Controllers
         // GET: Post
         public ActionResult Index(string threadId) //recieves new thread id
         {
+			//TODO: Add thread name
 			Guid CurrentThreadID = Guid.Parse(threadId);
 			var service = CreatePostService();
+			var threadService = CreateThreadService();
 			var model = service.GetPostsByThread(CurrentThreadID);
 			this.Session["currentThread"] = CurrentThreadID.ToString(); //sets current thread.
 			//Session["currentThread"] should only be used when redirecting to the index page from a view.
+			ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
 			return View(model);
 		}
 
@@ -122,6 +125,13 @@ namespace MessageBoard_2.WebMVC.Controllers
 		{
 			var userId = Guid.Parse(User.Identity.GetUserId());
 			var service = new PostService(userId);
+			return service;
+		}
+
+		private ThreadService CreateThreadService()
+		{
+			var userId = Guid.Parse(User.Identity.GetUserId());
+			var service = new ThreadService(userId);
 			return service;
 		}
 	}
