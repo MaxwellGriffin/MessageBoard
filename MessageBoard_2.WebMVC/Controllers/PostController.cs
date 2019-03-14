@@ -24,6 +24,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			this.Session["currentThread"] = CurrentThreadID.ToString(); //sets current thread.
 			//Session["currentThread"] should only be used when redirecting to the index page from a view.
 			ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
+			ViewBag.Op = threadService.GetThreadCreatorID(CurrentThreadID);
 			return View(model);
 		}
 

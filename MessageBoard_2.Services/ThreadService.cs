@@ -124,9 +124,14 @@ namespace MessageBoard_2.Services
 		public string GetThreadTitle(Guid threadId)
 		{
 			using (var ctx = new ApplicationDbContext())
-			{
 				return ctx.Threads.Where(e => e.ThreadID == threadId).Single().Title;
-			}
+			
+		}
+
+		public string GetThreadCreatorID(Guid threadId)
+		{
+			using (var ctx = new ApplicationDbContext())
+				return ctx.Threads.Where(e => e.ThreadID == threadId).Single().CreatorID.ToString();
 		}
 	}
 }
