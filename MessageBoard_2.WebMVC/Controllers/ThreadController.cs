@@ -105,7 +105,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[HttpPost]
 		[ActionName("Delete")]
 		[ValidateAntiForgeryToken]
-		public ActionResult DeleteSection(Guid id)
+		public ActionResult DeleteThread(Guid id)
 		{
 			var service = CreateThreadService();
 

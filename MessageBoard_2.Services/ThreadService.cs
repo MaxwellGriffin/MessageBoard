@@ -72,8 +72,16 @@ namespace MessageBoard_2.Services
 						.Single(e => e.ThreadID == threadId);
 
 				ctx.Threads.Remove(entity);
+				bool result = ctx.SaveChanges() == 1;
+			
+				var posts =
+					ctx
+						.Posts
+						.Where(e => e.ThreadID == threadId);
 
-				return ctx.SaveChanges() == 1;
+				ctx.Posts.RemoveRange(posts);
+				result &= ctx.SaveChanges() == 1;
+				return result;
 			}
 		}
 
@@ -102,6 +110,7 @@ namespace MessageBoard_2.Services
 			}
 		}
 
+		//details
 		public ThreadDetail GetThreadById(Guid threadId)
 		{
 			using (var ctx = new ApplicationDbContext())
@@ -115,7 +124,10 @@ namespace MessageBoard_2.Services
 					{
 						ThreadID = entity.ThreadID,
 						Title = entity.Title,
-						CreatorID = entity.CreatorID
+						CreatorID = entity.CreatorID,
+						CreatedUTC = entity.CreatedUTC,
+						CreatorUsername = ctx.Users.Where(y => y.Id == entity.CreatorID.ToString()).FirstOrDefault().UserName,
+						PostCount = ctx.Posts.Where(p => p.ThreadID == entity.ThreadID).Count()
 					};
 			}
 		}

@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#postbody{
+    height:30%;
+    width:100%;
+    max-width: 90vw
+}

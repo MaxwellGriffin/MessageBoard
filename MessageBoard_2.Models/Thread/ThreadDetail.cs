@@ -12,6 +12,8 @@ namespace MessageBoard_2.Models.Thread
 		public Guid ThreadID { get; set; }
 		public string Title { get; set; }
 		public Guid? CreatorID { get; set; }
+		public string CreatorUsername { get; set; }
 		public DateTimeOffset CreatedUTC { get; set; }
+		public int PostCount { get; set; }
 	}
 }

@@ -244,13 +244,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTimeOffset.cshtml" />
     <Content Include="Views\Thread\Create.cshtml" />
-    <Content Include="Views\Thread\Delete.cshtml" />
     <Content Include="Views\Thread\Details.cshtml" />
     <Content Include="Views\Thread\Edit.cshtml" />
     <Content Include="Views\Thread\Index.cshtml" />
     <Content Include="Views\Post\Index.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Index - Copy.cshtml" />
+    <Content Include="Views\Thread\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

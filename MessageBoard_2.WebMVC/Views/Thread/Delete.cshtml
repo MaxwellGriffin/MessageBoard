@@ -4,9 +4,9 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete thread?</h2>
 
-<h3>Are you sure you want to delete this thread?</h3>
+<h3>WARNING! This will also delete all posts in the thread!</h3>
 <div>
     <h4>Thread Details:</h4>
     <hr />
@@ -36,6 +36,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.CreatorUsername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorUsername)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.CreatedUTC)
         </dt>
 
@@ -43,9 +51,18 @@
             @Html.DisplayFor(model => model.CreatedUTC)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.PostCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostCount)
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

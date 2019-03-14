@@ -30,6 +30,8 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 		public ActionResult Create()
 		{
+			var threadService = CreateThreadService();
+			ViewBag.Thread = threadService.GetThreadTitle(Guid.Parse(Session["currentThread"].ToString()));
 			return View();
 		}
 
