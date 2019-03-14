@@ -12,9 +12,14 @@ namespace MessageBoard_2.Services
 		public string GetUserNameByID(Guid id)
 		{
 			using (var ctx = new ApplicationDbContext()) 
-			{
 				return ctx.Users.Where(y => y.Id == id.ToString()).FirstOrDefault().UserName;
-			}
+			
+		}
+
+		public int GetPostCount(Guid id)
+		{
+			using (var ctx = new ApplicationDbContext())
+				return ctx.Posts.Where(e => e.CreatorID == id).Count();
 		}
 	}
 }
