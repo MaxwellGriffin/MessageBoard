@@ -11,6 +11,7 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.RegisterUTC)
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -21,6 +22,12 @@
         @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" }) <!--Custom. This is where we will be adding the user name.-->
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AvatarURL, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.AvatarURL, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

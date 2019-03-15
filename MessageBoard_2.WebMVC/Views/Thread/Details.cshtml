@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Thread Details</h4>
+    <h4 style="font-style:italic">"@ViewBag.Thread"</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,16 +35,32 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.CreatorUsername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorUsername)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.CreatedUTC)
         </dt>
 
         <dd>
-            @Html.DisplayNameFor(model => model.CreatedUTC)
+            @Html.DisplayFor(model => model.CreatedUTC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostCount)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ThreadID }) |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

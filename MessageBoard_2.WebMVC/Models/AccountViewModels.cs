@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MessageBoard_2.WebMVC.Models
@@ -74,6 +75,11 @@ namespace MessageBoard_2.WebMVC.Models
 		[MaxLength(20, ErrorMessage ="Your name must not be longer than 20 characters.")]
 		public string UserName { get; set; } //Custom. For now the username is display only, we will still sign in using email.
 
+		[Display(Name ="Profile picture URL")]
+		public string AvatarURL { get; set; }
+
+		public DateTimeOffset RegisterUTC { get; set; }
+		
 		//[Required]
 		//[Display(Name ="UserRoles")]
 		//public string UserRoles { get; set; } //Custom

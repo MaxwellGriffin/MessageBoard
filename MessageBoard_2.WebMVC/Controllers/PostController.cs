@@ -56,14 +56,6 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
-		public ActionResult Details(Guid id)
-		{
-			var svc = CreatePostService();
-			var model = svc.GetPostById(id);
-
-			return View(model);
-		}
-
 		public ActionResult Edit(Guid id)
 		{
 			var service = CreatePostService();
@@ -118,7 +110,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 			service.DeletePost(id);
 
-			TempData["SaveResult"] = "The post was deleted";
+			TempData["SaveResult"] = "Post was deleted";
 
 			return RedirectToAction("Index");
 		}

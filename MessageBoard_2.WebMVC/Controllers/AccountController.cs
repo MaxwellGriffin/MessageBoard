@@ -166,7 +166,13 @@ namespace MessageBoard_2.WebMVC.Controllers
 			}
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser
+				{
+					UserName = model.UserName,
+					Email = model.Email,
+					AvatarURL = model.AvatarURL,
+					RegisterUTC = DateTimeOffset.Now
+				};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

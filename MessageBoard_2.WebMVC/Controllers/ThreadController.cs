@@ -54,6 +54,8 @@ namespace MessageBoard_2.WebMVC.Controllers
 			var svc = CreateThreadService();
 			var model = svc.GetThreadById(id);
 
+			ViewBag.Thread = svc.GetThreadTitle(id);
+
 			return View(model);
 		}
 
@@ -67,6 +69,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 					ThreadID = detail.ThreadID,
 					Title = detail.Title
 				};
+			ViewBag.Thread = service.GetThreadTitle(id);
 			return View(model);
 		}
 
@@ -98,6 +101,8 @@ namespace MessageBoard_2.WebMVC.Controllers
 		{
 			var svc = CreateThreadService();
 			var model = svc.GetThreadById(id);
+
+			ViewBag.Thread = svc.GetThreadTitle(id);
 
 			return View(model);
 		}
