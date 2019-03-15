@@ -10,7 +10,5 @@ namespace MessageBoard_2.Models.Post
 	{
 		public Guid PostID { get; set; }
 		public string Body { get; set; }
-		public Guid ThreadID { get; set; }
-		public DateTimeOffset ModifiedUTC { get; set; }
 	}
 }

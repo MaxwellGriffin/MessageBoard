@@ -25,6 +25,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			//Session["currentThread"] should only be used when redirecting to the index page from a view.
 			ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
 			ViewBag.Op = threadService.GetThreadCreatorID(CurrentThreadID);
+			ViewBag.UserID = Guid.Parse(User.Identity.GetUserId());
 			return View(model);
 		}
 
@@ -56,7 +57,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
-		public ActionResult Edit(Guid id)
+		public ActionResult Edit(Guid id) //TODO: check if user is owner/admin before allowing edit
 		{
 			var service = CreatePostService();
 			var detail = service.GetPostById(id);
@@ -66,6 +67,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 					PostID = detail.PostID,
 					Body = detail.Body
 				};
+			ViewBag.Thread = Session["currentThread"];
 			return View(model);
 		}
 
@@ -86,7 +88,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			if (service.UpdatePost(model))
 			{
 				TempData["ResultSaved"] = "Post was updated.";
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
 			}
 
 			ModelState.AddModelError("", "Post could not be updated.");

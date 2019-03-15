@@ -251,6 +251,7 @@
     <Content Include="Views\Post\Index - Copy.cshtml" />
     <Content Include="Views\Thread\Delete.cshtml" />
     <Content Include="Views\Thread\Details.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

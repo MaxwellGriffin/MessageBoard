@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<MessageBoard_2.Models.Post.PostListItem>
 
-<h2>@ViewBag.Title</h2> <!--This page will need to be heavily redesigned.-->
+<h2>Thread: "@ViewBag.Title"</h2> <!--This page will need to be heavily redesigned.-->
 
 <p>
-    @Html.ActionLink("New Reply", "Create") | @Html.ActionLink("Back", "Index", "Thread")
+    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("New Reply", "Create")
 </p>
 <table class="table">
     @{
@@ -18,14 +18,21 @@
                         <div class="col-md-6" style="color:white;font-weight:700">
                             <span>#</span>@i
                             <span> - </span>@Html.DisplayFor(modelItem => item.CreatedUTC)
+                            @if(item.ModifiedUTC != null)
+                            {
+                               <span> - ( Modified </span>@Html.DisplayFor(modelItem => item.ModifiedUTC)<span>)</span>
+                            }
                             @{
                                 i++;
                             }
                         </div>
                         <div class="col-md-6" style="text-align:right">
-                            @Html.ActionLink("Edit", "Edit", new { id = item.PostID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.PostID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
+                            @if (User.IsInRole("Admin") || ViewBag.UserID == item.CreatorID)
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.PostID })<span> | </span>
+                                @Html.ActionLink("Details", "Details", new { id = item.PostID })<span> | </span>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
+                            }
                         </div>
                     </div>
                     <div class="row">
@@ -53,5 +60,5 @@
 
 </table>
 <p>
-    @Html.ActionLink("New Reply", "Create") | @Html.ActionLink("Back", "Index", "Thread")
+    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("New Reply", "Create")
 </p>
