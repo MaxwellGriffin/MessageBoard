@@ -77,8 +77,7 @@ namespace MessageBoard_2.WebMVC.Models
 
 		[Display(Name ="Profile picture URL")]
 		public string AvatarURL { get; set; }
-
-		public DateTimeOffset RegisterUTC { get; set; }
+		
 		
 		//[Required]
 		//[Display(Name ="UserRoles")]

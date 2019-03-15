@@ -33,6 +33,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(ThreadCreate model)
 		{
+			model.ThreadID = Guid.NewGuid();
 
 			if (!ModelState.IsValid) return View(model);
 
@@ -41,7 +42,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			if (service.CreateThread(model))
 			{
 				TempData["ResultSaved"] = "Your thread was created.";
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", "Post", new { threadId = model.ThreadID });
 			}
 
 			ModelState.AddModelError("", "Thread could not be created.");

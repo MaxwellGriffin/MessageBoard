@@ -19,11 +19,11 @@ namespace MessageBoard_2.Services
 
 		public bool CreateThread(ThreadCreate model)
 		{
-			Guid id = Guid.NewGuid();
+			//Guid id = Guid.NewGuid();
 			var entity =
 				new Thread()
 				{
-					ThreadID = id,
+					ThreadID = model.ThreadID,
 					CreatorID = _userId,
 					Title = model.Title,
 					CreatedUTC = DateTimeOffset.Now
@@ -32,7 +32,7 @@ namespace MessageBoard_2.Services
 				new Post()
 				{
 					PostID = Guid.NewGuid(),
-					ThreadID = id,
+					ThreadID = model.ThreadID,
 					CreatorID = _userId,
 					CreatedUTC = DateTimeOffset.Now,
 					Body = model.Body

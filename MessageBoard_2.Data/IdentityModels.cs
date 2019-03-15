@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -12,7 +13,7 @@ namespace MessageBoard_2.Data
     public class ApplicationUser : IdentityUser
     {
 		public string AvatarURL { get; set; } //URL to the custom avatar of this user. Not sure if this will be used
-		public System.DateTimeOffset RegisterUTC { get; set; }
+		public DateTimeOffset RegisterUTC { get; set; }
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -63,7 +64,7 @@ namespace MessageBoard_2.Data
 	{
 		public IdentityUserRoleConfiguration()
 		{
-			HasKey(iur => iur.RoleId);
+			HasKey(iur => iur.UserId);
 		}
 	}
 }
