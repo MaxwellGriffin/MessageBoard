@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<MessageBoard_2.Models.Post.PostListItem>
-
+<a id="top"></a>
 <h2>Thread: "@ViewBag.Title"</h2> <!--This page will need to be heavily redesigned.-->
 
 <p>
-    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("New Reply", "Create")
+    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("+ New Reply", "Create") | <a href="#new_reply">Jump to Bottom ↓↓</a>
 </p>
 <table class="table">
     @{
@@ -18,9 +18,9 @@
                         <div class="col-md-6" style="color:white;font-weight:700">
                             <span>#</span>@i
                             <span> - </span>@Html.DisplayFor(modelItem => item.CreatedUTC)
-                            @if(item.ModifiedUTC != null)
+                            @if (item.ModifiedUTC != null)
                             {
-                               <span> - ( Modified </span>@Html.DisplayFor(modelItem => item.ModifiedUTC)<span>)</span>
+                                <span> - ( Modified </span>@Html.DisplayFor(modelItem => item.ModifiedUTC)<span>)</span>
                             }
                             @{
                                 i++;
@@ -57,8 +57,17 @@
             </td>
         </tr>
     }
-
 </table>
+
+<a id="new_reply"></a>
+@using (Html.BeginForm())
+{
+    <p>Reply to thread:</p>
+    @Html.AntiForgeryToken()
+    <textarea name="body" width="100%" id="postbody"></textarea>
+    <input type="submit" />
+}
+
 <p>
-    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("New Reply", "Create")
+    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("+ New Reply", "Create") | <a href="#top">Jump to Top ↑↑</a>
 </p>

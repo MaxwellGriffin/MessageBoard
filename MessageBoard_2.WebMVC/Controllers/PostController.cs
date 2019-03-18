@@ -1,4 +1,5 @@
 ﻿using MessageBoard_2.Models.Post;
+using MessageBoard_2.Models.Thread;
 using MessageBoard_2.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -55,6 +56,18 @@ namespace MessageBoard_2.WebMVC.Controllers
 			ModelState.AddModelError("", "Post could not be created.");
 
 			return View(model);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Index(string body, object nullObject)
+		{
+			var newPost = new PostCreate()
+			{
+				Body = body
+			};
+			Create(newPost);
+			return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
 		}
 
 		public ActionResult Edit(Guid id) //TODO: check if user is owner/admin before allowing edit
