@@ -30,6 +30,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 		//SET
 		[HttpPost]
+		[ActionName("Create")]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(ThreadCreate model)
 		{

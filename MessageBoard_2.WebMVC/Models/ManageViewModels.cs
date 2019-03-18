@@ -12,6 +12,7 @@ namespace MessageBoard_2.WebMVC.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+		public string Role { get; set; }//custom
     }
 
     public class ManageLoginsViewModel

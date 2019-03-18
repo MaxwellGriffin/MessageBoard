@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AccountListItem.cs" />
     <Compile Include="Post\PostCreate.cs" />
     <Compile Include="Post\PostEdit.cs" />
     <Compile Include="Post\PostListItem.cs" />

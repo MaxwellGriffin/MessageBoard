@@ -1,4 +1,5 @@
 ﻿using MessageBoard_2.Data;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,21 @@ namespace MessageBoard_2.Services
 			using (var ctx = new ApplicationDbContext())
 				return ctx.Posts.Where(e => e.CreatorID == id).Count();
 		}
+
+		public IEnumerable<IdentityUserRole> GetUserRoles(Guid id)
+		{
+			using (var ctx = new ApplicationDbContext())
+			{
+				return ctx.Users.Where(e => e.Id == id.ToString()).Single().Roles;
+			}
+		}
+
+		//public void SetUserRole(Guid id)
+		//{
+		//	using (var ctx = new ApplicationDbContext())
+		//	{
+
+		//	}
+		//}
 	}
 }
