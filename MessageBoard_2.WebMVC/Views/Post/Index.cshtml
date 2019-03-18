@@ -40,7 +40,7 @@
                             @{
                                 if (item.CreatorID.ToString() == ViewBag.Op)
                                 {
-                                    <p style="padding:10px;color:navy;font-style:italic">@Html.DisplayFor(modelItem => item.CreatorUsername)</p>
+                                    <p style="padding:10px;color:navy"><b>@Html.DisplayFor(modelItem => item.CreatorUsername)</b></p>
                                 }
                                 else
                                 {
@@ -59,14 +59,15 @@
     }
 </table>
 
-<a id="new_reply"></a>
-@using (Html.BeginForm())
-{
-    <p>Reply to thread:</p>
-    @Html.AntiForgeryToken()
-    <textarea name="body" width="100%" id="postbody"></textarea>
-    <input type="submit" />
-}
+<div id="new_reply">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <textarea name="body" width="100%" id="postbody" class="postbody" placeholder="New reply..."></textarea>
+        <input type="submit" />
+    }
+</div>
+
 
 <p>
     @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("+ New Reply", "Create") | <a href="#top">Jump to Top ↑↑</a>

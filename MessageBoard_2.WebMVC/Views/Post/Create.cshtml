@@ -35,7 +35,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to thread", "Index", new { threadId = Session["currentThread"] })
     @Html.ActionLink("Back to thread", "Index", "Post", null, null, "new_reply", new { threadId = Session["currentThread"] }, null)
 </div>
 
