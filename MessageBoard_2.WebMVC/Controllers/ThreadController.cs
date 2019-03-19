@@ -20,6 +20,7 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
 			var service = CreateThreadService();
 			var model = service.GetThreadsAll();
+			ViewBag.UserID = Guid.Parse(User.Identity.GetUserId());
 			return View(model);
 		}
 

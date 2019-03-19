@@ -253,10 +253,10 @@
     <Content Include="Views\Thread\Delete.cshtml" />
     <Content Include="Views\Thread\Details.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Admin\UserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Forum\" />
   </ItemGroup>
   <ItemGroup>

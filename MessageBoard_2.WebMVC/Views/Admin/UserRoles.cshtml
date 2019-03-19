@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MessageBoard_2.Models.Account.AccountListItem>
+
+@{
+    ViewBag.Title = "UserRoles";
+}
+
+<h2>UserRoles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="form-group">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThreadCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRoles)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThreadCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRoles)
+                    <p>User Role: </p>
+                    @*@Html.DropDownList("Name")*@
+                    @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
+                </td>
+            </tr>
+        }
+
+
+    </table>
+
+    <input type="submit" value="Index" />
+</div>

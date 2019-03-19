@@ -15,19 +15,13 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedUTC)
+            Created
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatorUsername)
+            Last post
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PostCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastPostUTC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastPostCreatorUsername)
         </th>
         <th></th>
     </tr>
@@ -39,24 +33,22 @@
             @Html.ActionLink(item.Title, "Index", "Post", new { threadId = item.ThreadID.ToString() }, null) <!--Should to go post controller index(threadId)-->
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedUTC) by
+            @Html.DisplayFor(modelItem => item.CreatedUTC) by <b>@Html.DisplayFor(modelItem => item.CreatorUsername)</b>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatorUsername)
+            @Html.DisplayFor(modelItem => item.LastPostUTC) by <b>@Html.DisplayFor(modelItem => item.LastPostCreatorUsername)</b>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PostCount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastPostUTC) by
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastPostCreatorUsername)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ThreadID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ThreadID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ThreadID })
+            @if (User.IsInRole("Admin") || ViewBag.UserID == item.CreatorID)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.ThreadID })<span> | </span>
+                @Html.ActionLink("Details", "Details", new { id = item.ThreadID })<span> | </span>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ThreadID })
+            }
+
         </td>
     </tr>
 }
