@@ -18,7 +18,7 @@
         <div class="form-group">
             <div class="container">
                 <div class="row">
-                    @Html.TextAreaFor(model => model.Body, new { @class = "form-group", @id="postbody", @rows=10})
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-group", @id="postbody", @rows=10, @cols=300})
                     @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
                 </div>
             </div>

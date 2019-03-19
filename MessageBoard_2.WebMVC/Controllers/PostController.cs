@@ -63,7 +63,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			if (service.CreatePost(model))
 			{
 				TempData["ResultSaved"] = "Post was created.";
-				return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
+				return Redirect(Url.RouteUrl(new { controller = "Post", action = "Index", threadId = Session["currentThread"] }) + "#new_reply");
 			}
 
 			ModelState.AddModelError("", "Post could not be created.");
