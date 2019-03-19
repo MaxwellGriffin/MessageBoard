@@ -30,6 +30,19 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Index(string body, object nullObject) //Used with the inline reply form
+		{
+			var newPost = new PostCreate()
+			{
+				Body = body
+			};
+			Create(newPost);
+			//return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
+			return Redirect(Url.RouteUrl(new { controller = "Post", action = "Index", threadId = Session["currentThread"] }) + "#new_reply");
+		}
+
 		public ActionResult Create()
 		{
 			var threadService = CreateThreadService();
@@ -56,19 +69,6 @@ namespace MessageBoard_2.WebMVC.Controllers
 			ModelState.AddModelError("", "Post could not be created.");
 
 			return View(model);
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Index(string body, object nullObject) //Used with the inline reply form
-		{
-			var newPost = new PostCreate()
-			{
-				Body = body
-			};
-			Create(newPost);
-			//return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
-			return Redirect(Url.RouteUrl(new { controller = "Post", action = "Index", threadId = Session["currentThread"] }) + "#new_reply");
 		}
 
 		public ActionResult Edit(Guid id) //TODO: check if user is owner/admin before allowing edit
