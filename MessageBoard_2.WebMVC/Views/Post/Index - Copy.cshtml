@@ -1,50 +1,77 @@
 ﻿@model IEnumerable<MessageBoard_2.Models.Post.PostListItem>
-
-<h2>@ViewBag.Title</h2> <!--This page will need to be heavily redesigned.-->
+<a id="top"></a>
+<h2>Thread: "@ViewBag.Title"</h2> <!--This page will need to be heavily redesigned.-->
 
 <p>
-    @Html.ActionLink("New Reply", "Create") | @Html.ActionLink("Back", "Index", "Thread")
+    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("+ New Reply", "Create") | <a href="#new_reply">Jump to Bottom ↓↓</a>
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatorUsername)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedUTC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedUTC)
-        </th>
-    </tr>
-@{ 
-}
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatorUsername)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedUTC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedUTC)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.PostID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.PostID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
-        </td>
-    </tr>
-}
+    @{
+        int i = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="postbox" style="border-style:inset">
+                <div class="container" style="border-style:inset">
+                    <div class="row" style="background-color:navy">
+                        <div class="col-md-6" style="color:white;font-weight:700">
+                            <span>#</span>@i
+                            <span> - </span>@Html.DisplayFor(modelItem => item.CreatedUTC)
+                            @if (item.ModifiedUTC != null)
+                            {
+                                <span> - ( Modified </span>@Html.DisplayFor(modelItem => item.ModifiedUTC)<span>)</span>
+                            }
+                            @{
+                                i++;
+                            }
+                        </div>
+                        <div class="col-md-6" style="text-align:right">
+                            @if (User.IsInRole("Admin") || ViewBag.UserID == item.CreatorID)
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.PostID })<span> | </span>
+                                @Html.ActionLink("Details", "Details", new { id = item.PostID })<span> | </span>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="width:20%;height:100%;display:inline-block;text-align:center;background-color:cornflowerblue">
+                            @{
+                                if (item.CreatorID.ToString() == ViewBag.Op)
+                                {
+                                    <p style="padding:10px;color:navy"><b>@Html.DisplayFor(modelItem => item.CreatorUsername)</b></p>
+                                }
+                                else
+                                {
+                                    <p style="padding:10px">@Html.DisplayFor(modelItem => item.CreatorUsername)</p>
 
+                                }
+                            }
+                        </div>
+                        <div class="col-md-6" style="border-style:inset;display:inline-block;width:80%;min-height:3.5em">
+                            @Html.DisplayFor(modelItem => item.Body)
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+        <tr>
+            <td>
+                <div id="new_reply" class="newreply">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <textarea name="body" placeholder="New reply..." rows="4"></textarea>
+                        <br />
+                        <input type="submit" value="Post" />
+                    }
+                </div>
+            </td>
+        </tr>
 </table>
+
 <p>
-    @Html.ActionLink("New Reply", "Create") | @Html.ActionLink("Back", "Index", "Thread")
+    @Html.ActionLink("←Index", "Index", "Thread") | @Html.ActionLink("+ New Reply", "Create") | <a href="#top">Jump to Top ↑↑</a>
 </p>

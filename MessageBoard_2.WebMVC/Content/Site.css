@@ -23,9 +23,8 @@ textarea {
     max-width: 280px;
 }
 
-.postbody{
-    width:75vw;
+.newreply textarea {
+    width: 100%;
     max-width: 999999px;
-    placeholder: "New reply...";
-    border-style:inset;
+    border-style: inset;
 }
