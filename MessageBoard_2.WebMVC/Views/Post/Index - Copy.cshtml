@@ -57,19 +57,19 @@
             </td>
         </tr>
     }
-        <tr>
-            <td>
-                <div id="new_reply" class="newreply">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-                        <textarea name="body" placeholder="New reply..." rows="4"></textarea>
-                        <br />
-                        <input type="submit" value="Post" />
-                    }
-                </div>
-            </td>
-        </tr>
+    <tr>
+        <td>
+            <div id="new_reply" class="newreply">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <textarea name="body" placeholder="New reply..." rows="4"></textarea>
+                    <br />
+                    <input type="submit" value="Post" />
+                }
+            </div>
+        </td>
+    </tr>
 </table>
 
 <p>
