@@ -13,7 +13,7 @@
     <div class="container-fluid post">
         <div class="row databar">
             @*Data Row*@
-            <div class="datestamp" style="width:100%; display:flex">
+            <div class="datestamp">
                 <span style="width:37%">
                     #@i - @Html.DisplayFor(modelItem => item.CreatedUTC)
                     @if (item.ModifiedUTC != null)
@@ -34,8 +34,13 @@
             </div>
         </div>
         <div class="row postmain match-my-cols">
-            <div class="col-xs-2 info">
-                <span>@Html.DisplayFor(modelItem => item.CreatorUsername)</span>
+            <div class="col-xs-2 creatorinfo">
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.CreatorUsername)</span><br />
+                @if(item.CreatorAvaURL != null)
+                {
+                    <img src="@item.CreatorAvaURL" /><br />
+                }
+                <span>@Html.DisplayFor(modelItem => item.CreatorPostCount) Posts | @Html.DisplayFor(modelItem => item.CreatorType)</span>
             </div>
             <div class="col-xs-10 body">
                 @Html.DisplayFor(modelItem => item.Body)
@@ -49,7 +54,7 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div style="border-style:inset;">
+        <div style="border-style:inset;"> <!--Simply gives a better border around the textarea-->
             <textarea name="body" placeholder="New reply..." rows="4"></textarea>
         </div>
         <br />

@@ -29,6 +29,10 @@ textarea {
     border-style: inset;
 }
 
+.italic {
+    font-style: italic;
+}
+
 /* styling for posts: */
 .post{
     border-style:inset;
@@ -40,9 +44,11 @@ textarea {
     background-color:navy;
 }
 
-.post .datestamp{
-    /*width:auto;*/
-}
+    .post .datestamp {
+        width: 100%;
+        display: flex
+        /*width:auto;*/
+    }
 
 .post .controls{
     text-align:right;
@@ -52,18 +58,21 @@ textarea {
         background-color: cornflowerblue;
     }
 
-    .post .info {
+    .post .creatorinfo {
         text-align: center;
     }
 
-.info span{
-}
+    .creatorinfo img{
+        height:50px;
+        width:50px;
+    }
 
 .post .body{
     background-color:white;
 }
 /* end styling for posts */
 
+/*Matching Height Columns*/
 .row.match-my-cols {
     overflow: hidden;
 }
@@ -72,3 +81,4 @@ textarea {
         margin-bottom: -99999px;
         padding-bottom: 99999px;
     }
+/*end matching height columns*/

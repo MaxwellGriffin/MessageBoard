@@ -12,10 +12,14 @@ namespace MessageBoard_2.Models.Post
 		public Guid PostID { get; set; } //should be hidden
 		public Guid ThreadID { get; set; }
 		public string Body { get; set; }
-		public Guid CreatorID { get; set; }
-		public string CreatorUsername { get; set; }
 		public DateTimeOffset CreatedUTC { get; set; }
 		public DateTimeOffset? ModifiedUTC { get; set; }
+		//creator info
+		public Guid CreatorID { get; set; }
+		public string CreatorUsername { get; set; }
+		public int CreatorPostCount { get; set; }
+		public string CreatorType { get; set; } //based on postcount
+		public string CreatorAvaURL { get; set; }
 
 		public override string ToString() => Body;
 	}

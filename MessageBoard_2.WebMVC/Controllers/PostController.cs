@@ -22,6 +22,7 @@ namespace MessageBoard_2.WebMVC.Controllers
 			var service = CreatePostService();
 			var threadService = CreateThreadService();
 			var model = service.GetPostsByThread(CurrentThreadID);
+			model = AssignCreatorTypes(model); //rank users based on post count
 			this.Session["currentThread"] = CurrentThreadID.ToString(); //sets current thread.
 			//Session["currentThread"] should only be used when redirecting to the index page from a view.
 			ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
@@ -144,6 +145,21 @@ namespace MessageBoard_2.WebMVC.Controllers
 			var userId = Guid.Parse(User.Identity.GetUserId());
 			var service = new ThreadService(userId);
 			return service;
+		}
+
+		private IEnumerable<PostListItem> AssignCreatorTypes(IEnumerable<PostListItem> model)
+		{
+			foreach (var item in model)
+			{
+				int posts = item.CreatorPostCount;
+				if (posts < 10)
+					item.CreatorType = "Noob";
+				else if (posts >= 10 && posts < 30)
+					item.CreatorType = "Regular";
+				else
+					item.CreatorType = "Veteran";
+			}
+			return model;
 		}
 	}
 }

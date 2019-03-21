@@ -105,7 +105,9 @@ namespace MessageBoard_2.Services
 									CreatorID = e.CreatorID,
 									CreatedUTC = e.CreatedUTC,
 									ModifiedUTC = e.ModifiedUTC,
-									CreatorUsername = ctx.Users.Where(x => x.Id == e.CreatorID.ToString()).FirstOrDefault().UserName
+									CreatorUsername = ctx.Users.Where(x => x.Id == e.CreatorID.ToString()).FirstOrDefault().UserName,
+									CreatorPostCount = ctx.Posts.Where(x => x.CreatorID == e.CreatorID).Count(),
+									CreatorAvaURL = ctx.Users.Where(x => x.Id == e.CreatorID.ToString()).FirstOrDefault().AvatarURL
 								}
 						);
 
