@@ -44,7 +44,7 @@
             </div>
             <div class="col-xs-10 body">
                 @{
-                    string[] content = item.Body.Split('\n');
+                    string[] content = item.Body.Split('\n');<!--TODO: Move to controller-->
                 }
                 <p>
                     @foreach (string line in content)

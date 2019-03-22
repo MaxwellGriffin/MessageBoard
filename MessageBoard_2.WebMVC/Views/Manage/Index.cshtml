@@ -38,10 +38,10 @@
                 @Html.ActionLink("->Change Avatar", "ChangeAvatar")
             </div>
             <div class="col-md-9">
-                <h4>Your Forum Stats:</h4>
+                <h4>Your Forum Stats</h4>
                 <br />
-                <p>Total threads:</p>
-                <p>Total posts:</p>
+                <p><b>Total threads:</b> @Model.ThreadCount</p>
+                <p><b>Total posts:</b> @Model.PostCount</p>
             </div>
         </div>
     </div>
