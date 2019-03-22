@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MessageBoard_2.WebMVC.Models;
+using MessageBoard_2.Models.Account;
+using MessageBoard_2.Services;
+using System.Text.RegularExpressions;
 
 namespace MessageBoard_2.WebMVC.Controllers
 {
@@ -61,6 +64,7 @@ namespace MessageBoard_2.WebMVC.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+				: message == ManageMessageId.ChangeAvatarSuccess ? "Your avatar was changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -333,9 +337,60 @@ namespace MessageBoard_2.WebMVC.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
+		#region Custom
+		//This is where I've made changes to this file
+		public ActionResult ChangeAvatar()
+		{
+			var svc = CreateAccountService();
+			var model = new ChangeAvatarViewModel
+			{
+				AvatarURL = svc.GetUserAvatar()
+			};
+			return View(model);
+		}
+
+		bool IsUrl(string s)
+		{
+			var urlDotChar = "[A-Za-z0-9_\\-\\+=]+";
+			var urlExtChar = "[a-zA-Z0-9\\-\\+\\._&\\?=]+";
+			var pattern = @"^(https?://)?[A-Za-z0-9]+.[A-Za-z0-9]+(.[A-Za-z0-9]+)(/[a-zA-Z0-9\-\+\._&\?=]+)*$";//"https?//" + urlDotChar + "." + urlDotChar + "(." + urlDotChar + ")(/" + urlExtChar + ")*";
+			return new Regex(pattern).IsMatch(s);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult ChangeAvatar(ChangeAvatarViewModel model)
+		{
+			ManageMessageId? message;
+			if (!ModelState.IsValid || !IsUrl(model.AvatarURL))
+			{
+				return View(model);
+			}
+
+			var svc = CreateAccountService();
+
+			if(svc.ChangeUserAvatar(model))
+			{
+				message = ManageMessageId.ChangeAvatarSuccess;
+				return RedirectToAction("Index", new { Message = message });
+			}
+			message = ManageMessageId.Error;
+
+			return RedirectToAction("Index", new { Message = message });
+		}
+
+		private AccountService CreateAccountService()
+		{
+			var userId = Guid.Parse(User.Identity.GetUserId());
+			var svc = new AccountService(userId);
+			return svc;
+		}
+
+		#endregion
+
+		#region Helpers
+		// Used for XSRF protection when adding external logins
+		private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
@@ -381,6 +436,7 @@ namespace MessageBoard_2.WebMVC.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+			ChangeAvatarSuccess,
             Error
         }
 

@@ -76,6 +76,7 @@ namespace MessageBoard_2.WebMVC.Models
 		public string UserName { get; set; } //Custom. For now the username is display only, we will still sign in using email.
 
 		[Display(Name ="Profile picture URL")]
+		[DataType(DataType.ImageUrl)]
 		public string AvatarURL { get; set; }
 		
 		

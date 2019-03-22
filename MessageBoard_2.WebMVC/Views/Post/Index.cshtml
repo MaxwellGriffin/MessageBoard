@@ -43,7 +43,13 @@
                 <span>@Html.DisplayFor(modelItem => item.CreatorPostCount) Posts | @Html.DisplayFor(modelItem => item.CreatorType)</span>
             </div>
             <div class="col-xs-10 body">
-                @Html.DisplayFor(modelItem => item.Body)
+                @{
+                    string[] content = item.Body.Split('\n');
+                }
+                @foreach (string line in content) {
+                    @line<br />
+                }
+                
             </div>
         </div>
     </div>
