@@ -68,13 +68,17 @@ namespace MessageBoard_2.WebMVC.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+			var svc = CreateAccountService();
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+				AvatarURL = svc.GetUserAvatar(),
+				PostCount = svc.GetUserPostCount(),
+				ThreadCount = svc.GetUserThreadCount()
             };
             return View(model);
         }
@@ -349,20 +353,21 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
-		bool IsUrl(string s)
-		{
-			var urlDotChar = "[A-Za-z0-9_\\-\\+=]+";
-			var urlExtChar = "[a-zA-Z0-9\\-\\+\\._&\\?=]+";
-			var pattern = @"^(https?://)?[A-Za-z0-9]+.[A-Za-z0-9]+(.[A-Za-z0-9]+)(/[a-zA-Z0-9\-\+\._&\?=]+)*$";//"https?//" + urlDotChar + "." + urlDotChar + "(." + urlDotChar + ")(/" + urlExtChar + ")*";
-			return new Regex(pattern).IsMatch(s);
-		}
+		//bool IsUrl(string s)
+		//{
+		//	var urlDotChar = "[A-Za-z0-9_\\-\\+=]+";
+		//	var urlExtChar = "[a-zA-Z0-9\\-\\+\\._&\\?=]+";
+		//	var pattern = @"^(https?://)?[A-Za-z0-9]+.[A-Za-z0-9]+(.[A-Za-z0-9]+)(/[a-zA-Z0-9\-\+\._&\?=]+(.[a-zA-Z0-9\-\+\._&\?=]+)?)*$";//"https?//" + urlDotChar + "." + urlDotChar + "(." + urlDotChar + ")(/" + urlExtChar + ")*";
+		//	return new Regex(pattern).IsMatch(s);
+		//}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult ChangeAvatar(ChangeAvatarViewModel model)
 		{
 			ManageMessageId? message;
-			if (!ModelState.IsValid || !IsUrl(model.AvatarURL))
+			//if (!ModelState.IsValid || !IsUrl(model.AvatarURL))
+			if(!ModelState.IsValid)
 			{
 				return View(model);
 			}

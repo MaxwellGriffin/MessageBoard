@@ -46,10 +46,12 @@
                 @{
                     string[] content = item.Body.Split('\n');
                 }
-                @foreach (string line in content) {
-                    @line<br />
-                }
-                
+                <p>
+                    @foreach (string line in content)
+                    {
+                        @line<br />
+                    }
+                </p>
             </div>
         </div>
     </div>

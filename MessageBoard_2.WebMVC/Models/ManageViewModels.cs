@@ -13,7 +13,10 @@ namespace MessageBoard_2.WebMVC.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
-		public string Role { get; set; }//custom
+		//Custom:
+		public string AvatarURL { get; set; }
+		public int PostCount { get; set; }
+		public int ThreadCount { get; set; }
     }
 
     public class ManageLoginsViewModel

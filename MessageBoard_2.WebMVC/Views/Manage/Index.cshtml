@@ -28,12 +28,21 @@
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
         </dd>
-        <dt>Role:</dt> @*custom, did not remove anything*@
-        <dd>
-            @Html.DisplayFor(m => Model.Role)
-        </dd>
-        <dt>
-            @Html.ActionLink("Change Avatar", "ChangeAvatar")
-        </dt>
     </dl>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Avatar:</h4>
+                <img src="@Model.AvatarURL" style="width:150px;height:150px;" /><br />
+                @Html.ActionLink("->Change Avatar", "ChangeAvatar")
+            </div>
+            <div class="col-md-9">
+                <h4>Your Forum Stats:</h4>
+                <br />
+                <p>Total threads:</p>
+                <p>Total posts:</p>
+            </div>
+        </div>
+    </div>
 </div>
