@@ -50,16 +50,21 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
             var threadService = CreateThreadService();
             ViewBag.Thread = threadService.GetThreadTitle(Guid.Parse(Session["currentThread"].ToString()));
-            return View();
+            var model = new PostCreate
+            {
+                ThreadID = Guid.Parse(Session["currentThread"].ToString()),
+                Body = ""
+            };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(PostCreate model)
         {
-            model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important
+            //model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important
                                                                                    //TODO: model state is not valid because not all properties are filled ?
-            if (model.Body.Length < 2) //TODO: bug - ModelState.IsValid returning false for null threadID, even though it is added above. Temporary fix.
+            if (!ModelState.IsValid) //TODO: bug - ModelState.IsValid returning false for null threadID, even though it is added above. Temporary fix.
             {
                 ModelState.AddModelError("", "Your post must contain at least 2 characters.");
                 return View(model);
