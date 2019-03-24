@@ -76,9 +76,10 @@ namespace MessageBoard_2.WebMVC.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-				AvatarURL = svc.GetUserAvatar(),
-				PostCount = svc.GetUserPostCount(),
-				ThreadCount = svc.GetUserThreadCount()
+                AvatarURL = svc.GetUserAvatar(),
+                PostCount = svc.GetUserPostCount(),
+                ThreadCount = svc.GetUserThreadCount(),
+                RegisterUTC = svc.GetUserRegisterUTC()
             };
             return View(model);
         }

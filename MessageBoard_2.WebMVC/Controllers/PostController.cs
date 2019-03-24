@@ -27,7 +27,7 @@ namespace MessageBoard_2.WebMVC.Controllers
             this.Session["currentThread"] = CurrentThreadID.ToString(); //sets current thread.
             //Session["currentThread"] should only be used when redirecting to the index page from a view.
             ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
-            ViewBag.Op = threadService.GetThreadCreatorID(CurrentThreadID);
+            ViewBag.Op = threadService.GetThreadCreatorID(CurrentThreadID); //TODO: re-add op highlighting
             ViewBag.UserID = Guid.Parse(User.Identity.GetUserId());
             
             return View(model);
@@ -59,8 +59,9 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
             model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important
                                                                                    //TODO: model state is not valid because not all properties are filled ?
-            if (!ModelState.IsValid) //coming back true no matter what
+            if (model.Body.Length < 2) //TODO: bug - ModelState.IsValid returning false for null threadID, even though it is added above. Temporary fix.
             {
+                ModelState.AddModelError("", "Your post must contain at least 2 characters.");
                 return View(model);
             }
 

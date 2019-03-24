@@ -42,5 +42,11 @@ namespace MessageBoard_2.Services
 			var ctx = new ApplicationDbContext();
 			return ctx.Threads.Where(e => e.CreatorID == _userId).Count();
 		}
+
+        public DateTimeOffset GetUserRegisterUTC()
+        {
+            var ctx = new ApplicationDbContext();
+            return ctx.Users.Where(e => e.Id == _userId.ToString()).FirstOrDefault().RegisterUTC;
+        }
 	}
 }

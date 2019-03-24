@@ -13,7 +13,7 @@ namespace MessageBoard_2.Data
     public class ApplicationUser : IdentityUser
     {
 		public string AvatarURL { get; set; } //URL to the custom avatar of this user. Not sure if this will be used
-		public DateTimeOffset RegisterUTC { get; set; }
+		public DateTimeOffset RegisterUTC { get; set; } //TODO: implement registerutc
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

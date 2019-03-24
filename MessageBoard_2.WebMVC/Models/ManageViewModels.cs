@@ -17,6 +17,7 @@ namespace MessageBoard_2.WebMVC.Models
 		public string AvatarURL { get; set; }
 		public int PostCount { get; set; }
 		public int ThreadCount { get; set; }
+        public DateTimeOffset RegisterUTC { get; set; }
     }
 
     public class ManageLoginsViewModel
