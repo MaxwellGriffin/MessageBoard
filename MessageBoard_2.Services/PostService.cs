@@ -73,17 +73,22 @@ namespace MessageBoard_2.Services
 				var entity =
 					ctx
 						.Posts
-						.Single(e => e.PostID == postId);
-				return
-					new PostListItem
-					{
-						PostID = entity.PostID,
-						ThreadID = entity.ThreadID,
-						Body = entity.Body,
-						CreatorID = entity.CreatorID,
-						CreatedUTC = entity.CreatedUTC,
-						ModifiedUTC = entity.ModifiedUTC
-					};
+						.Where(x => x.PostID == postId).SingleOrDefault();
+			
+				var post = new PostListItem
+				{
+					PostID = entity.PostID,
+					ThreadID = entity.ThreadID,
+					Body = entity.Body,
+					CreatorID = entity.CreatorID,
+					CreatedUTC = entity.CreatedUTC,
+					ModifiedUTC = entity.ModifiedUTC,
+					CreatorUsername = ctx.Users.Where(x => x.Id == entity.CreatorID.ToString()).FirstOrDefault().UserName,
+					CreatorPostCount = ctx.Posts.Where(x => x.CreatorID == entity.CreatorID).Count(),
+					CreatorAvaURL = ctx.Users.Where(x => x.Id == entity.CreatorID.ToString()).FirstOrDefault().AvatarURL
+				};
+
+				return post;
 			}
 		}
 

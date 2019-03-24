@@ -55,9 +55,12 @@ namespace MessageBoard_2.WebMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(PostCreate model)
 		{
-			model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important(?)
+			model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important
 			//TODO: model state is not valid because not all properties are filled ?
-			//if (!ModelState.IsValid) return View(model); 
+			if (!ModelState.IsValid) //coming back true no matter what
+			{
+				return View(model);
+			}
 
 			var service = CreatePostService();
 
@@ -73,15 +76,9 @@ namespace MessageBoard_2.WebMVC.Controllers
 		}
 
 		public ActionResult Edit(Guid id) //TODO: check if user is owner/admin before allowing edit
-		{
+		{//TODO: Make this a postlistitem
 			var service = CreatePostService();
-			var detail = service.GetPostById(id);
-			var model =
-				new PostEdit
-				{
-					PostID = detail.PostID,
-					Body = detail.Body
-				};
+			var model = service.GetPostById(id);
 			ViewBag.Thread = Session["currentThread"];
 			return View(model);
 		}

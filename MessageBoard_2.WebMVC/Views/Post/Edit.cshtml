@@ -1,4 +1,4 @@
-﻿@model MessageBoard_2.Models.Post.PostEdit
+﻿@model MessageBoard_2.Models.Post.PostListItem
 
 @{
     ViewBag.Title = "Edit";
@@ -16,13 +16,39 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            <div class="container-fluid post">
+                <div class="row databar">
+                    @*Data Row*@
+                    <div class="datestamp">
+                        <span style="width:37%">
+                            #1 - @Model.CreatedUTC)
+                            @if (Model.ModifiedUTC != null)
+                            {
+                                <span> - (Modified @Model.ModifiedUTC)</span>
+                            }
+                        </span>
+                        <span class="controls" style="position:relative; right:0px; width:61%">
+                            <!--Should be empty-->
+                        </span>
+                    </div>
+                </div>
+                <div class="row postmain match-my-cols">
+                    <div class="col-xs-2 creatorinfo">
+                        <span style="font-weight:600">@Model.CreatorUsername</span><br />
+                        @if (Model.CreatorAvaURL != null)
+                        {
+                            <img src="@Model.CreatorAvaURL" /><br />
+                        }
+                        <span>@Model.CreatorPostCount Posts | @Model.CreatorType</span>
+                    </div>
+                    <div class="col-xs-10 body">
+                        <textarea name="Body" cols="50" style="width:100%;height:40vh;max-width:99999px;">@Model.Body</textarea>
+                        @*@Html.TextAreaFor(model => Model.Body)*@
+                    </div>
+                </div>
             </div>
         </div>
-        @Html.HiddenFor(model => model.PostID)
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
