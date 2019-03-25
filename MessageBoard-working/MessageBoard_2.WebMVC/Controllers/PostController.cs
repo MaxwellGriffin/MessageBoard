@@ -24,7 +24,6 @@ namespace MessageBoard_2.WebMVC.Controllers
             var model = service.GetPostsByThread(CurrentThreadID);
             model = AssignCreatorTypes(model); //rank users based on post count
             model = ParseEmotes(model); //parse emotes into HTML
-            model = ParseFormatting(model);
             this.Session["currentThread"] = CurrentThreadID.ToString(); //sets current thread.
             //Session["currentThread"] should only be used when redirecting to the index page from a view.
             ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
@@ -40,7 +39,6 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
             var newPost = new PostCreate()
             {
-                ThreadID = Guid.Parse(this.Session["currentThread"].ToString()),
                 Body = body
             };
             Create(newPost);
@@ -111,7 +109,7 @@ namespace MessageBoard_2.WebMVC.Controllers
             if (service.UpdatePost(model))
             {
                 TempData["ResultSaved"] = "Post was updated.";
-                return Redirect(Url.RouteUrl(new { controller = "Post", action = "Index", threadId = Session["currentThread"] }) + "#new_reply");
+                return RedirectToAction("Index", new { threadId = Session["currentThread"] }); //provides index parameter
             }
 
             ModelState.AddModelError("", "Post could not be updated.");
@@ -201,29 +199,7 @@ namespace MessageBoard_2.WebMVC.Controllers
                 item.Body = item.Body.Replace(":lol:", "<img src=\"content/emotes/lol.gif\" class=\"emote\" />");
                 item.Body = item.Body.Replace(":blah:", "<img src=\"content/emotes/blah.gif\" class=\"emote\" />");
                 item.Body = item.Body.Replace(":shades:", "<img src=\"content/emotes/shades.gif\" class=\"emote\" />");
-                               
-            }
-            return model;
-        }
 
-        private IEnumerable<PostListItem> ParseFormatting(IEnumerable<PostListItem> model)
-        {
-            var imgLinkParser = new ImgLinkParser();
-            foreach (var item in model)
-            {
-                item.Body = item.Body.Replace("[b]", "<b>");
-                item.Body = item.Body.Replace("[/b]", "</b>");
-
-                item.Body = item.Body.Replace("[i]", "<i>");
-                item.Body = item.Body.Replace("[/i]", "</i>");
-
-                item.Body = item.Body.Replace("[h]", "<h3>");
-                item.Body = item.Body.Replace("[/h]", "</h3>");
-
-                item.Body = item.Body.Replace("[u]", "<u>");
-                item.Body = item.Body.Replace("[/u]", "</u>");
-
-                item.Body = imgLinkParser.Parse(item.Body);
             }
             return model;
         }

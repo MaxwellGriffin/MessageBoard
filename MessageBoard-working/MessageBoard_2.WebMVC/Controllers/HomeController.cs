@@ -26,10 +26,5 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 			return View();
 		}
-
-        public ActionResult StyleGuide()
-        {
-            return View();
-        }
 	}
 }

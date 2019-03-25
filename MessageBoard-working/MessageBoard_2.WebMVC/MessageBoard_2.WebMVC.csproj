@@ -265,7 +265,6 @@
     <Content Include="Views\Post\Index - Copy.cshtml" />
     <Content Include="Views\Manage\ChangeAvatar.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
-    <Content Include="Views\Home\StyleGuide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
