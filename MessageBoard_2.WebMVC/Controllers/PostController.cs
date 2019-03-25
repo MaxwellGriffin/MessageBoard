@@ -39,6 +39,7 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
             var newPost = new PostCreate()
             {
+                ThreadID = Guid.Parse(this.Session["currentThread"].ToString()),
                 Body = body
             };
             Create(newPost);
