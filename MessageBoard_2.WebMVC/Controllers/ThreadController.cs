@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace MessageBoard_2.WebMVC.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class ThreadController : Controller
     {
 		// GET: Thread
@@ -24,13 +24,13 @@ namespace MessageBoard_2.WebMVC.Controllers
 			return View(model);
 		}
 
-		public ActionResult Create()
+        public ActionResult Create()
 		{
 			return View();
 		}
 
-		//SET
-		[HttpPost]
+        //SET
+        [HttpPost]
 		[ActionName("Create")]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(ThreadCreate model)
@@ -51,8 +51,8 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 			return View(model);
 		}
-
-		public ActionResult Details(Guid id)
+        
+        public ActionResult Details(Guid id)
 		{
 			var svc = CreateThreadService();
 			var model = svc.GetThreadById(id);
@@ -61,8 +61,8 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 			return View(model);
 		}
-
-		public ActionResult Edit(Guid id)
+        
+        public ActionResult Edit(Guid id)
 		{
 			var service = CreateThreadService();
 			var detail = service.GetThreadById(id);
@@ -75,20 +75,25 @@ namespace MessageBoard_2.WebMVC.Controllers
 			ViewBag.Thread = service.GetThreadTitle(id);
 			return View(model);
 		}
-
-		[HttpPost]
+        
+        [HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit(Guid id, ThreadEdit model)
 		{
-			if (!ModelState.IsValid) return View(model);
+            var service = CreateThreadService();
+
+            //if(User.IsInRole("Admin") || User.Identity.GetUserId() != service.GetThreadCreatorID(id).ToString())
+            //{
+            //    return RedirectToAction("Index");
+            //}
+
+            if (!ModelState.IsValid) return View(model);
 
 			if (model.ThreadID != id)
 			{
 				ModelState.AddModelError("", "ID Mismatch");
 				return View(model);
 			}
-
-			var service = CreateThreadService();
 
 			if (service.UpdateThread(model))
 			{
@@ -99,8 +104,8 @@ namespace MessageBoard_2.WebMVC.Controllers
 			ModelState.AddModelError("", "Thread could not be updated.");
 			return View(model);
 		}
-
-		public ActionResult Delete(Guid id)
+        
+        public ActionResult Delete(Guid id)
 		{
 			var svc = CreateThreadService();
 			var model = svc.GetThreadById(id);
@@ -109,15 +114,20 @@ namespace MessageBoard_2.WebMVC.Controllers
 
 			return View(model);
 		}
-
-		[HttpPost]
+        
+        [HttpPost]
 		[ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteThread(Guid id)
 		{
-			var service = CreateThreadService();
+            var service = CreateThreadService();
 
-			service.DeleteThread(id);
+            //if (User.IsInRole("Admin") || User.Identity.GetUserId() != service.GetThreadCreatorID(id).ToString())
+            //{
+            //    return RedirectToAction("Index");
+            //}
+
+            service.DeleteThread(id);
 
 			TempData["SaveResult"] = "The thread was deleted";
 

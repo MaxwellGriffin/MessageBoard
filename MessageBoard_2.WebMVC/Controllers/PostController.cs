@@ -30,7 +30,7 @@ namespace MessageBoard_2.WebMVC.Controllers
             ViewBag.Title = threadService.GetThreadTitle(CurrentThreadID);
             ViewBag.Op = threadService.GetThreadCreatorID(CurrentThreadID); //TODO: re-add op highlighting
             ViewBag.UserID = Guid.Parse(User.Identity.GetUserId());
-            
+
             return View(model);
         }
 
@@ -65,7 +65,7 @@ namespace MessageBoard_2.WebMVC.Controllers
         public ActionResult Create(PostCreate model)
         {
             //model.ThreadID = Guid.Parse(this.Session["currentThread"].ToString()); //important
-                                                                                   //TODO: model state is not valid because not all properties are filled ?
+            //TODO: model state is not valid because not all properties are filled ?
             if (!ModelState.IsValid) //TODO: bug - ModelState.IsValid returning false for null threadID, even though it is added above. Temporary fix.
             {
                 ModelState.AddModelError("", "Your post must contain at least 2 characters.");
@@ -89,6 +89,7 @@ namespace MessageBoard_2.WebMVC.Controllers
         {//TODO: Make this a postlistitem
             var service = CreatePostService();
             var model = service.GetPostById(id);
+
             model = AssignCreatorTypes(model); //rank users based on post count
             ViewBag.Thread = Session["currentThread"];
             return View(model);
@@ -100,13 +101,18 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
+            var service = CreatePostService();
+
+            //if (!User.IsInRole("Admin") || User.Identity.GetUserId() != service.GetPostById(id).CreatorID.ToString())
+            //{
+            //    return RedirectToAction("Index");
+            //}
+
             if (model.PostID != id)
             {
                 ModelState.AddModelError("", "ID Mismatch");
                 return View(model);
             }
-
-            var service = CreatePostService();
 
             if (service.UpdatePost(model))
             {
@@ -133,6 +139,11 @@ namespace MessageBoard_2.WebMVC.Controllers
         public ActionResult DeletePost(Guid id)
         {
             var service = CreatePostService();
+
+            //if (!User.IsInRole("Admin") || User.Identity.GetUserId() != service.GetPostById(id).CreatorID.ToString())
+            //{
+            //    return RedirectToAction("Index");
+            //}
 
             service.DeletePost(id);
 
@@ -196,12 +207,12 @@ namespace MessageBoard_2.WebMVC.Controllers
         {
             foreach (var item in model)
             {
-                item.Body = item.Body.Replace(":eyeroll:", "<img src=\"content/emotes/eyeroll.gif\" class=\"emote\" />");
-                item.Body = item.Body.Replace(":wink:", "<img src=\"content/emotes/wink.gif\" class=\"emote\" />");
-                item.Body = item.Body.Replace(":lol:", "<img src=\"content/emotes/lol.gif\" class=\"emote\" />");
-                item.Body = item.Body.Replace(":blah:", "<img src=\"content/emotes/blah.gif\" class=\"emote\" />");
-                item.Body = item.Body.Replace(":shades:", "<img src=\"content/emotes/shades.gif\" class=\"emote\" />");
-                               
+                item.Body = item.Body.Replace(":eyeroll:", "<img src=\"content/emotes/eyeroll.png\" class=\"emote\" />");
+                item.Body = item.Body.Replace(":wink:", "<img src=\"content/emotes/wink.png\" class=\"emote\" />");
+                item.Body = item.Body.Replace(":lol:", "<img src=\"content/emotes/lol.png\" class=\"emote\" />");
+                item.Body = item.Body.Replace(":blah:", "<img src=\"content/emotes/blah.png\" class=\"emote\" />");
+                item.Body = item.Body.Replace(":shades:", "<img src=\"content/emotes/shades.png\" class=\"emote\" />");
+
             }
             return model;
         }

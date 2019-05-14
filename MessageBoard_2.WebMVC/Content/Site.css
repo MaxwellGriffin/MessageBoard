@@ -109,3 +109,9 @@ textarea {
     height:30px;
 }
 
+.table {
+    border-top-color: cornflowerblue;
+    border-bottom-color:cornflowerblue;
+    border-color:cornflowerblue;
+}
+

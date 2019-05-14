@@ -191,7 +191,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Emotes\blah.png" />
     <Content Include="Content\Emotes\eyeroll.gif" />
+    <Content Include="Content\Emotes\eyeroll.png" />
+    <Content Include="Content\Emotes\lol.png" />
+    <Content Include="Content\Emotes\shades.png" />
+    <Content Include="Content\Emotes\wink.png" />
+    <Content Include="Content\Images\github.png" />
+    <Content Include="Content\Images\linkedin.png" />
+    <Content Include="Content\Images\portfolio.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -204,7 +212,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Properties\PublishProfiles\MessageBoardMaxG - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\MaxwellGriffinMessageBoardNew - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -262,7 +270,6 @@
     <Content Include="Views\Thread\Details.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Admin\UserRoles.cshtml" />
-    <Content Include="Views\Post\Index - Copy.cshtml" />
     <Content Include="Views\Manage\ChangeAvatar.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Home\StyleGuide.cshtml" />

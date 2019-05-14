@@ -49,6 +49,7 @@ namespace MessageBoard_2.Services
                         if (tok.EndsWith("]"))
                         {
                             var url = tok.Substring(0, tok.Length - 1);
+                            if (!url.StartsWith("http")) url = "http://" + url;
                             var html = $"<img src=\"{url}\" style=\"max-width:500px;\">";
                             tokz.Add(html);
                             tok = "";
